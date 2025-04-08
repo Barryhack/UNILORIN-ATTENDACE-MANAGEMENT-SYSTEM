@@ -1,0 +1,88 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Existing User model
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  password      String?
+  role          UserRole  @default(STUDENT)
+  department    String
+  // Student specific fields
+  matricNo      String?   @unique
+  level         String?
+  // Staff specific fields
+  staffId       String?   @unique
+  // Hardware registration fields
+  rfidId        String?   @unique
+  fingerprintId String?   @unique
+  hardwareRegistrationComplete Boolean @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime @updatedAt
+  auditLogs       AuditLog[]
+  attendanceRecords AttendanceRecord[]
+  biometricData BiometricData?
+  verificationLogs BiometricVerificationLog[]
+}
+
+model AttendanceRecord {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  sessionId    String
+  studentId    String
+  status       String
+  checkInMethod String
+  checkIn      DateTime @default(now())
+  checkOut     DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  ipAddress String
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model BiometricData {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  template  Bytes
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BiometricVerificationLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  success   Boolean
+  ipAddress String
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+enum UserRole {
+  ADMIN
+  STAFF
+  STUDENT
+} 

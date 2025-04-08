@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --unilorin-purple: 46, 26, 71; /* #2E1A47 */
+  --unilorin-green: 0, 104, 56; /* #006838 */
+  --unilorin-gold: 197, 165, 114; /* #C5A572 */
+}
+
+/* Custom focus styles for form elements */
+.border-2:focus {
+  border-color: rgb(var(--unilorin-purple));
+  box-shadow: 0 0 0 1px rgb(var(--unilorin-purple));
+}
+
+/* Smooth transitions */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Enhanced button hover effect */
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* Card hover effect */
+.card:hover {
+  box-shadow: 0 10px 25px -5px rgba(var(--unilorin-purple), 0.1);
+}
+
+/* Background gradient animation */
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.bg-gradient-animate {
+  background-size: 200% 200%;
+  animation: gradientFlow 15s ease infinite;
+}
+
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 70%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-progress {
+  animation: progress 2s ease-in-out infinite;
+}
+
