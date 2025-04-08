@@ -15,12 +15,14 @@ import {
 
 interface DatePickerWithRangeProps {
   className?: string
+  id?: string
   date: DateRange | undefined
   setDate: (date: DateRange | undefined) => void
 }
 
 export function DatePickerWithRange({
   className,
+  id,
   date,
   setDate,
 }: DatePickerWithRangeProps) {
@@ -29,7 +31,7 @@ export function DatePickerWithRange({
       <Popover>
         <PopoverTrigger asChild>
           <Button
-            id="date"
+            id={id}
             variant={"outline"}
             className={cn(
               "w-full justify-start text-left font-normal",
