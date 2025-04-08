@@ -10,9 +10,16 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+# Handle Next.js routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
+  status = 200
+
+# Add specific redirects for Next.js API routes
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
   status = 200
 
 [functions]
