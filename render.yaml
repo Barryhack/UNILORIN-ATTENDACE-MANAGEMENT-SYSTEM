@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: unilorin-ams
+    env: node
+    buildCommand: npm install && npm run render-build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 18
+      - key: NEXT_TELEMETRY_DISABLED
+        value: 1
+      - key: PORT
+        value: 10000
+      - key: NEXTAUTH_URL
+        value: https://unilorin-ams.onrender.com
+      - key: NEXTAUTH_SECRET
+        value: unilorin-ams-secret-key-2024
+      - key: DATABASE_URL
+        value: postgresql://user:password@localhost:5432/unilorin_ams
+      - key: ESP32_BASE_URL
+        value: http://localhost:8080
+      - key: FINGERPRINT_TIMEOUT
+        value: "30"
+      - key: FINGERPRINT_QUALITY
+        value: "60"
+      - key: FINGERPRINT_MAX_ATTEMPTS
+        value: "3"
+    plan: free 
